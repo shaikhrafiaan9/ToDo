@@ -1,0 +1,59 @@
+{% extends 'basictodo/base.html' %}
+
+{% block content %}<br><br>
+<div class="w3-container w3-mobile">
+  <div class="w3-container w3-teal w3-center w3-card w3-mobile">
+    <h1 class="w3-mobile w3-text-black w3-hover-text-white">Completed : {{todo.count}} {{ todo.count|pluralize }}</h1>
+  </div>
+  {% for todo in todo %}
+  <div class="w3-container w3-card w3-responsive">
+    <table class="w3-table w3-text-black w3-mobile">
+      <tr>
+        <th>
+          <a href="{% url 'viewtodo' todo.id %}" class="w3-mobile">
+          {% if todo.important %}
+          <b class="w3-text-red w3-hover-text-teal">
+          {% endif %}
+          {{todo.title}}
+          {% if todo.important %}
+          </b>
+          {% endif %}
+          </a>
+        </th>
+      </tr>
+      <tr>
+        <td>
+          {% if todo.memo %}
+          - {{ todo.memo|truncatechars:30 }}
+          {% endif %}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Completed @{{todo.datacompleted|date:"M j Y H:i"}}</b>
+        </td>
+      </tr>
+    </table>
+  </div>
+  {% endfor %}
+</div>
+<!--
+{% for todo in todo %}
+<ul>
+  <li>
+    <a href="{% url 'viewtodo' todo.id %}">
+    {% if todo.important %}
+    <b>
+    {% endif %}
+    {{todo.title}}
+    {% if todo.important %}
+    </b>
+    {% endif %}
+    {% if todo.memo %}
+    - {{todo.memo}}
+    {% endif %}
+    </a>
+    Completed at : {{todo.datacompleted|date:"D, d M Y" }}
+  </li>
+</ul>
+
+{% endfor %}-->
+<br><br>
+{% include 'basictodo/footer.html' %}
+{% endblock %}

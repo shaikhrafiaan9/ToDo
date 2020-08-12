@@ -1,0 +1,61 @@
+{% extends 'basictodo/base.html' %}
+
+{% block content %}<br><br>
+<div class="w3-container w3-mobile">
+  <div class="w3-container w3-teal w3-center w3-card w3-mobile">
+    <h1 class="w3-text-black w3-hover-text-white">Current ToDo : {{todos.count}}'{{ todos.count|pluralize }}</h1>
+  </div>
+  {% if todos %}
+  {% for todo in todos  %}
+  <div class="w3-container w3-card w3-responsive">
+    <table class="w3-table w3-text-black">
+      <tr>
+        <th>
+          <a href="{% url 'viewtodo' todo.id %}" class="w3-hover-text-teal">
+          {% if todo.important %}
+          <b class="w3-text-red w3-hover-text-teal">
+          {% endif %}
+          {{todo.title}}
+          {% if todo.important %}
+          </b>
+          {% endif %}
+          </a>
+        </th>
+      </tr>
+      <tr>
+        <td>
+          {% if todo.memo %}
+          - {{ todo.memo|truncatechars:30 }}
+          {% endif %}
+        </td>
+      </tr>
+    </table>
+  </div>
+  {% endfor %}
+  {% else %}<br><br>
+  <div class="text-center"><br>
+    <h2>Looks like you don't have any todos! Nice work.</h2>
+    <br>
+    <a role="button" class="w3-btn w3-teal w3-round-large w3-hover-text-white" href="{% url 'createtodo' %}">New Todo</a>
+  </div>
+  {% endif %}
+</div>
+<br>
+{% include 'basictodo/footer.html' %}
+{% endblock %}
+<!--<ul>
+  <li>
+    <a href="{% url 'viewtodo' todo.id %}">
+    {% if todo.important %}
+    <b>
+    {% endif %}
+    {{todo.title}}
+    {% if todo.important %}
+    </b>
+    {% endif %}
+    {% if todo.memo %}
+    - {{todo.memo}}
+    {% endif %}
+    </a>
+  </li>
+</ul>-->

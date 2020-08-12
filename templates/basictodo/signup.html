@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% extends 'basictodo/base.html' %}
+{% load bootstrap4 %}
+
+{% block content %}
+<br>
+<br>
+  <div class="w3-content">
+    <div class="w3-container w3-teal">
+      <h2 class="w3-center">Sign Up</h2>
+    </div><br>
+    {% if error %}
+    <div class="w3-center w3-red">
+      <h3>{{error}}</h3>
+    </div>
+    {% endif %}
+    <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" class="form-control" id="username" aria-describedby="usernameHelp">
+                    <small id="usernameHelp" class="form-text text-muted">Your username must be unique. We'll let you know if someone has taken it already.</small>
+                </div>
+                <div class="form-group">
+                    <label for="password1">Password</label>
+                    <input type="password" name="password1" class="form-control" id="password1">
+                </div>
+                <div class="form-group">
+                    <label for="password2">Confirm Password</label>
+                    <input type="password" name="password2" class="form-control" id="password2">
+                </div>
+                <div class="w3-center">
+                  <button type="submit" name="Sign Up" class="w3-btn w3-teal w3-round-large">Sign Up</button>
+                </div>
+    </form>
+    <!--<form class="w3-container" method="POST">
+      {% csrf_token %}
+      {% bootstrap_form form %}
+
+      <button type="submit" name="Sign Up" class="w3-btn w3-blue w3-round-large">Sign Up</button>
+    </form>-->
+  </div>
+<br>
+{% include 'basictodo/footer.html' %}
+{% endblock %}

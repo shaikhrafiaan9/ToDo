@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% extends 'basictodo/base.html' %}
+
+{% block content %}
+<br><br>
+  <div class="w3-content">
+    <div class="w3-container w3-teal">
+      <h2 class="w3-center">Sign Up</h2>
+    </div><br>
+    {% if error %}
+    <div class="w3-center w3-red">
+      <h3>{{error}}</h3>
+    </div>
+    {% endif %}
+    <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" name="username" class="form-control" id="username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control" id="password">
+                </div>
+                <div class="w3-center">
+                  <button type="submit" name="Sign Up" class="w3-btn w3-teal w3-round-large">Sign Up</button>
+                </div>
+    </form>
+            <hr>
+    <div class="text-center">
+                Need an account? <a href="{% url 'signupuser' %}">Sign Up here</a>
+    </div>
+    <!--<form class="w3-container" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+
+        <button type="submit" name="Login" class="w3-btn w3-blue w3-round-large">Login</button>
+    </form>-->
+  </div>
+  <br><br>
+{% include 'basictodo/footer.html' %}
+{% endblock %}
