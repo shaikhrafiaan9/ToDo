@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TODO</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
@@ -12,7 +13,7 @@
     <style media="screen">
       body{
         font-family: 'Lemonada', cursive;
-        margin:0;
+        margin:0 auto;
       }
       a:hover{
 	       text-decoration: none;
@@ -23,24 +24,52 @@
     </style>
   </head>
   <body>
-    <div class="w3-mobile">
-      <div class="w3-bar w3-teal w3-mobile w3-text-black">
-        <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-mobile w3-xlarge w3-hover-none w3-hover-text-white"><b>Todo</b></a>
+    <div class="w3-mobile" >
+      <div class="w3-bar w3-teal w3-text-black">
+        <a href="{% url 'home' %}" class="w3-bar-item w3-button w3-xlarge w3-hover-none w3-hover-text-white"><b>Todo</b></a>
         {% if user.is_authenticated %}
-        <a href="{% url 'current' %}" class="w3-bar-item w3-button w3-mobile w3-xlarge w3-hover-none w3-hover-text-white">Current ToDo</a>
-        <a href="{% url 'completedtodo' %}" class="w3-bar-item w3-button w3-mobile w3-xlarge w3-hover-none w3-hover-text-white">Completed</a>
-        <a href="{% url 'createtodo' %}" class="w3-bar-item w3-button w3-mobile w3-xlarge w3-hover-none w3-hover-text-white">Create</a>
+        <a href="{% url 'current' %}" class="w3-bar-item w3-button w3-mobile w3-xlarge w3-hover-none w3-hover-text-white w3-hide-small">Current ToDo</a>
+        <a href="{% url 'completedtodo' %}" class="w3-bar-item w3-button w3-mobile w3-xlarge w3-hover-none w3-hover-text-white w3-hide-small">Completed</a>
+        <a href="{% url 'createtodo' %}" class="w3-bar-item w3-button w3-mobile w3-xlarge w3-hover-none w3-hover-text-white w3-hide-small">Create</a>
         <form action="{% url 'logoutuser' %}" method="post" class="w3-mobile">
               {% csrf_token %}
-            <button type="submit" name="logout" class="w3-bar-item w3-button w3-right w3-mobile w3-xlarge w3-hover-none w3-hover-text-white">Logout</button>
+            <button type="submit" name="logout" class="w3-bar-item w3-button w3-right w3-mobile w3-xlarge w3-hover-none w3-hover-text-white w3-hide-small">Logout</button>
         </form>
-        <a href="#" class="w3-bar-item w3-button w3-right w3-mobile w3-xlarge w3-hover-none w3-hover-text-white">Welcome {{user.username}}</a>
+        <a href="#" class="w3-bar-item w3-button w3-right w3-mobile w3-xlarge w3-hover-none w3-hover-text-white w3-hide-small">Welcome {{user.username}}</a>
         {% else %}
-        <a href="{% url 'signupuser' %}" class="w3-bar-item w3-button w3-mobile w3-right w3-xlarge w3-hover-none w3-hover-text-white">SignUp</a>
-        <a href="{% url 'loginuser' %}" class="w3-bar-item w3-button w3-mobile w3-right w3-xlarge w3-hover-none w3-hover-text-white">Login</a>
+        <a href="{% url 'signupuser' %}" class="w3-bar-item w3-button w3-mobile w3-right w3-xlarge w3-hover-none w3-hover-text-white w3-hide-small">SignUp</a>
+        <a href="{% url 'loginuser' %}" class="w3-bar-item w3-button w3-mobile w3-right w3-xlarge w3-hover-none w3-hover-text-white w3-hide-small">Login</a>
+        {% endif %}
+        <a href="javascript:void(0)" class="w3-bar-item w3-button  w3-large w3-right w3-hide-large w3-hide-medium" onclick="myFunction()">&#9776; </a>
+      </div>
+
+
+      <div id="demo" class="w3-bar-block w3-teal w3-text-black w3-hide w3-hide-large w3-hide-medium">
+        {% if user.is_authenticated %}
+        <a href="{% url 'current' %}" class="w3-bar-item w3-button  w3-large w3-hover-none w3-hover-text-white w3-hide-large w3-hide-medium">Current ToDo</a>
+        <a href="{% url 'completedtodo' %}" class="w3-bar-item w3-button w3-large w3-hover-none w3-hover-text-white w3-hide-large w3-hide-medium">Completed</a>
+        <a href="{% url 'createtodo' %}" class="w3-bar-item w3-button  w3-large w3-hover-none w3-hover-text-white w3-hide-large w3-hide-medium">Create</a>
+        <form action="{% url 'logoutuser' %}" method="post" class="w3-teal w3-text-black w3-hover-teal w3-hover-text-white">
+              {% csrf_token %}
+            <button type="submit" name="logout" class="w3-bar-item w3-button w3-right w3-large w3-hover-teal w3-hover-text-white w3-hide-large w3-hide-medium">Logout</button>
+        </form>
+        {% else %}
+        <a href="{% url 'signupuser' %}" class="w3-bar-item w3-button w3-right w3-large w3-hover-teal w3-hover-text-white w3-hide-large w3-hide-medium">SignUp</a>
+        <a href="{% url 'loginuser' %}" class="w3-bar-item w3-button  w3-right w3-large w3-hover-teal w3-hover-text-white w3-hide-large w3-hide-medium">Login</a>
         {% endif %}
       </div>
+      <br>
     </div>
+    <script>
+    function myFunction() {
+    var x = document.getElementById("demo");
+    if (x.className.indexOf("w3-show") == -1) {
+    x.className += " w3-show";
+    } else {
+    x.className = x.className.replace(" w3-show", "");
+    }
+    }
+    </script>
   </body>
 </html>
 
@@ -48,7 +77,8 @@
 
 
 {% block content %}
-<div class="w3-container">
+<div class="">
+
 
 </div>
 {% endblock %}
